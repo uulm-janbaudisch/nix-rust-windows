@@ -1,0 +1,19 @@
+name: CI
+
+on:
+  - push
+
+jobs:
+  Build:
+    strategy:
+      fail-fast: false
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Nix
+        uses: DeterminateSystems/nix-installer-action@v10
+      - name: Cache
+        uses: DeterminateSystems/magic-nix-cache-action@v4
+      - name: Build
+        run: nix build -L
